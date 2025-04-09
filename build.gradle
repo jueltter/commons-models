@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
 group = 'ec.dev.samagua'
@@ -7,6 +8,14 @@ version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    maven {
+        url "https://repo.repsy.io/mvn/jueltter/default"
+        // Optionally, include credentials if the repository requires authentication.
+        credentials {
+            // username = project.findProperty("repoUsername") ?: ""
+            // password = project.findProperty("repoPassword") ?: ""
+        }
+    }
 }
 
 configurations {
@@ -24,4 +33,34 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        // Create a Maven publication named "mavenJava"
+        mavenJava(MavenPublication) {
+            // Publish the Java component (the JAR, sources, javadoc, etc.)
+            from components.java
+
+            // Optionally, set an artifactId if it differs from the project name
+            artifactId = 'commons-models'
+        }
+    }
+    repositories {
+        maven {
+            // Give the repository a descriptive name
+            name = "repsy"
+
+            // Set the repository URL; this could be an HTTPS URL or a file-based repository.
+            // Replace the following URL with the URL of your private repository.
+            url = uri("https://repo.repsy.io/mvn/jueltter/default")
+
+            // Securely specify repository credentials.
+            credentials {
+                // It is recommended to provide username and password via gradle.properties or another secure storage mechanism.
+                username = project.findProperty("repoUser") ?: ""
+                password = project.findProperty("repoPassword") ?: ""
+            }
+        }
+    }
 }
