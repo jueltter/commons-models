@@ -15,6 +15,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    environment: default
     permissions:
       contents: read
       packages: write
@@ -33,7 +34,7 @@ jobs:
       uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
 
     - name: Echo test
-      run: echo "Let's fun start!"
+      run: echo "${{ vars.MESSAGE }}"
 
     - name: Make gradlew executable
       run: chmod +x ./gradlew
@@ -47,4 +48,4 @@ jobs:
       run: ./gradlew publish
       env:
         USERNAME: ${{ github.actor }}
-        TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        TOKEN: ${{ secrets.PACKAGES_TOKEN }}
