@@ -55,11 +55,11 @@ publishing {
             // Example: https://maven.pkg.github.com/my-org/commons-repo
             url = uri("https://maven.pkg.github.com/jueltter/commons-models")
 
-//            credentials {
-//                // Recommended: use env vars so it works in GitHub Actions and locally
-//                username = System.getenv("GITHUB_ACTOR") ?: (findProperty("gpr.user") ?: "")
-//                password = System.getenv("GITHUB_TOKEN") ?: (findProperty("gpr.key") ?: "")
-//            }
+            credentials {
+                // Recommended: use env vars so it works in GitHub Actions and locally
+                username = System.getenv("GITHUB_ACTOR") ?: (findProperty("gpr.user") ?: "")
+                password = System.getenv("GITHUB_TOKEN") ?: (findProperty("gpr.key") ?: "")
+            }
         }
     }
 }
