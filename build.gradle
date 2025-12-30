@@ -48,19 +48,18 @@ publishing {
     }
     repositories {
         maven {
-            // Give the repository a descriptive name
-            name = "repsy"
+            name = "githubPackages"
 
-            // Set the repository URL; this could be an HTTPS URL or a file-based repository.
-            // Replace the following URL with the URL of your private repository.
-            url = uri("https://repo.repsy.io/mvn/jueltter/default")
+            // IMPORTANT:
+            // Replace OWNER and REPOSITORY with your GitHub org/user and the repo that will host the package.
+            // Example: https://maven.pkg.github.com/my-org/commons-repo
+            url = uri("https://maven.pkg.github.com/jueltter/commons-models")
 
-            // Securely specify repository credentials.
-            credentials {
-                // It is recommended to provide username and password via gradle.properties or another secure storage mechanism.
-                username = project.findProperty("repoUser") ?: ""
-                password = project.findProperty("repoPassword") ?: ""
-            }
+//            credentials {
+//                // Recommended: use env vars so it works in GitHub Actions and locally
+//                username = System.getenv("GITHUB_ACTOR") ?: (findProperty("gpr.user") ?: "")
+//                password = System.getenv("GITHUB_TOKEN") ?: (findProperty("gpr.key") ?: "")
+//            }
         }
     }
 }
